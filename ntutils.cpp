@@ -1,3 +1,5 @@
+#include "pch.h"
+
 #include <optional>
 
 #include "ntutils.h"

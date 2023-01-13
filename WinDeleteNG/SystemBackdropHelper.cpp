@@ -7,7 +7,7 @@ static PDISPATCHERQUEUECONTROLLER sDispatcherQueueController = nullptr;
 
 namespace WinDelete
 {
-	void SystemBackdropHelper::EnableMicaBackdrop(const winrt::Microsoft::UI::Xaml::IWindow& window)
+	void SystemBackdropHelper::EnableMicaBackdrop()
 	{
 		EnsureWindowsSystemDispatcherQueueController();
 
@@ -16,13 +16,14 @@ namespace WinDelete
 			return;
 		}
 
-		auto conf = winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropConfiguration();
-		conf.IsInputActive(true);
-		conf.Theme(winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default);
+		m_conf.IsInputActive(true);
+		m_conf.Theme(winrt::Microsoft::UI::Composition::SystemBackdrops::SystemBackdropTheme::Default);
+		m_window.Activated({ this, &SystemBackdropHelper::HandleWindowActivated });
+		m_window.Closed({ this, &SystemBackdropHelper::HandleWindowClosed });
 
 		m_micaController.Kind(winrt::Microsoft::UI::Composition::SystemBackdrops::MicaKind::Base);
-		m_micaController.AddSystemBackdropTarget(window.try_as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>());
-		m_micaController.SetSystemBackdropConfiguration(conf);
+		m_micaController.AddSystemBackdropTarget(m_window.try_as<winrt::Microsoft::UI::Composition::ICompositionSupportsSystemBackdrop>());
+		m_micaController.SetSystemBackdropConfiguration(m_conf);
 	}
 
 	void SystemBackdropHelper::EnsureWindowsSystemDispatcherQueueController()
@@ -44,5 +45,23 @@ namespace WinDelete
 		options.apartmentType = DQTAT_COM_STA;
 
 		CreateDispatcherQueueController(options, &sDispatcherQueueController);
+	}
+
+	void SystemBackdropHelper::HandleWindowActivated(
+		const winrt::Windows::Foundation::IInspectable& sender,
+		const winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs& args)
+	{
+		m_conf.IsInputActive(args.WindowActivationState() != winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated);
+	}
+
+	void SystemBackdropHelper::HandleWindowClosed(
+		const winrt::Windows::Foundation::IInspectable& sender,
+		const winrt::Microsoft::UI::Xaml::WindowEventArgs& args)
+	{
+		if (m_micaController)
+		{
+			m_micaController.Close();
+			m_micaController = nullptr;
+		}
 	}
 }

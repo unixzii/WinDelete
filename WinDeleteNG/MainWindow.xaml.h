@@ -16,6 +16,8 @@ namespace winrt::WinDeleteNG::implementation
 
         void AboutButton_Click(const IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args);
         void SelectFileButton_Click(const IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args);
+        winrt::Windows::Foundation::IAsyncAction
+        InspectButton_Click(const IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args);
 
     private:
         WinDelete::SystemBackdropHelper m_backdropHelper;

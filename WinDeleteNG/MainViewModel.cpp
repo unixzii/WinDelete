@@ -22,6 +22,11 @@ namespace winrt::WinDeleteNG::implementation
         m_propertyChanged(*this, winrt::Microsoft::UI::Xaml::Data::PropertyChangedEventArgs{ L"SelectedFileName" });
     }
 
+    winrt::Windows::Foundation::Collections::IObservableVector<WinDeleteNG::HandleProcessItem> MainViewModel::HandleProcessItems()
+    {
+        return m_handleProcessItems;
+    }
+
     winrt::event_token MainViewModel::PropertyChanged(const Microsoft::UI::Xaml::Data::PropertyChangedEventHandler& handler)
     {
         return m_propertyChanged.add(handler);

@@ -1,0 +1,13 @@
+namespace WinDeleteNG
+{
+    [bindable]
+    [default_interface]
+    runtimeclass HandleProcessItem : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        HandleProcessItem();
+        
+        Int32 Pid;
+        String ProcessName;
+        Microsoft.UI.Xaml.Media.ImageSource IconImageSource;
+    }
+}

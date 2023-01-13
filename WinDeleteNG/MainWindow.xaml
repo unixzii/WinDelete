@@ -17,18 +17,21 @@
                 <RowDefinition Height="Auto"/>
             </Grid.RowDefinitions>
             <Border x:Name="TitleBarDragView" Grid.Row="0">
-                <TextBlock Text="{Bind Title}" Margin="16,8,16,0" />
+                <TextBlock Text="{Bind Title}" FontSize="12" Margin="16,8,16,8" />
             </Border>
             <CommandBar Grid.Row="1" Background="Transparent" DefaultLabelPosition="Right">
                 <CommandBar.Content>
                     <Border Height="48" Margin="8,0,0,0">
                         <Button x:Name="SelectFileButton" VerticalAlignment="Center" Style="{StaticResource AccentButtonStyle}" Click="SelectFileButton_Click">
-                            Select File
+                            <StackPanel Orientation="Horizontal">
+                                <SymbolIcon Symbol="OpenFile" Margin="0,0,6 ,0" />
+                                <TextBlock Text="Select File" />
+                            </StackPanel>
                         </Button>
                     </Border>
                 </CommandBar.Content>
-                <AppBarButton x:Name="UnlockButton" IsEnabled="False" Icon="Permissions" Label="Unlock"/>
-                <AppBarButton x:Name="InspectButton" IsEnabled="False" Icon="Find" Label="Inpsect"/>
+                <AppBarButton x:Name="UnlockButton" IsEnabled="False" Icon="Permissions" Label="Unlock" />
+                <AppBarButton x:Name="InspectButton" IsEnabled="False" Icon="Find" Label="Inpsect" Click="InspectButton_Click" />
                 <CommandBar.SecondaryCommands>
                     <AppBarButton Label="About" Click="AboutButton_Click" />
                 </CommandBar.SecondaryCommands>
@@ -39,6 +42,27 @@
                 <SolidColorBrush Color="{ThemeResource ControlFillColorTertiary}"/>
             </Border.Background>
             <Page x:Name="MainPage">
+                <Page.Resources>
+                    <DataTemplate x:Key="HandleProcessItemTemplate" x:DataType="local:HandleProcessItem">
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="*"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Image Grid.RowSpan="2" Width ="32" Height="32" Margin="6" VerticalAlignment="Center" HorizontalAlignment="Center" Source="{x:Bind IconImageSource}" />
+                            <TextBlock Grid.Column="1" Text="{x:Bind ProcessName}" Style="{ThemeResource BaseTextBlockStyle}" Margin="12,4,0,0" />
+                            <TextBlock Grid.Column="1" Grid.Row="1" FontFamily="Cascadia Code" FontSize="11" Foreground="{ThemeResource TextFillColorTertiary}" Margin="12,4,0,6">
+                                <Run Text="PID:" />
+                                <Run Text="{x:Bind Pid}" />
+                            </TextBlock>
+                        </Grid>
+                    </DataTemplate>
+                </Page.Resources>
+                
                 <Grid>
                     <VisualStateManager.VisualStateGroups>
                         <VisualStateGroup x:Name="PageStates">
@@ -51,14 +75,38 @@
                                     <Setter Target="InspectButton.IsEnabled" Value="True" />
                                 </VisualState.Setters>
                             </VisualState>
+                            <VisualState x:Name="Working">
+                                <VisualState.Setters>
+                                    <Setter Target="IdleLabel.Visibility" Value="Collapsed" />
+                                    <Setter Target="ProgressIndicator.Visibility" Value="Visible" />
+                                    <Setter Target="ProgressIndicator.IsActive" Value="True" />
+                                </VisualState.Setters>
+                            </VisualState>
+                            <VisualState x:Name="Inspected">
+                                <VisualState.Setters>
+                                    <Setter Target="IdleLabel.Visibility" Value="Collapsed" />
+                                    <Setter Target="HandleProcessListView.Visibility" Value="Visible" />
+                                    <Setter Target="UnlockButton.IsEnabled" Value="True" />
+                                    <Setter Target="InspectButton.IsEnabled" Value="True" />
+                                </VisualState.Setters>
+                            </VisualState>
                         </VisualStateGroup>
                     </VisualStateManager.VisualStateGroups>
                     
-                    <TextBlock x:Name="IdleLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16,0"  Text="Select a file to continue..." TextWrapping="Wrap" />
-                    <TextBlock x:Name="PromptLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16,0" Visibility="Collapsed" TextWrapping="Wrap">
-                        <Run Text="{x:Bind ViewModel.SelectedFileName, Mode=OneWay}" FontFamily="Cascadia Code" FontWeight="Bold" />
-                        <Run Text="is selected, now you can perform the actions on the toolbar." />
-                    </TextBlock>
+                    <TextBlock x:Name="IdleLabel" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="16,0" Text="Select a file to continue..." TextWrapping="Wrap" />
+                    <StackPanel x:Name="PromptLabel" Visibility="Collapsed" VerticalAlignment="Center" Margin="16,0">
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap">
+                            Selected file:
+                        </TextBlock>
+                        <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center" Margin="0,8,0,0">
+                            <Run Text="{x:Bind ViewModel.SelectedFileName, Mode=OneWay}" FontFamily="Cascadia Code" FontWeight="Bold" />
+                        </TextBlock>
+                        <TextBlock HorizontalAlignment="Center" TextWrapping="Wrap" Margin="0,32,0,0">
+                            You can now perform actions on the toolbar.
+                        </TextBlock>
+                    </StackPanel>
+                    <ListView x:Name="HandleProcessListView" SelectionMode="Single" ItemTemplate="{StaticResource HandleProcessItemTemplate}" Visibility="Collapsed" />
+                    <ProgressRing x:Name="ProgressIndicator" IsActive="False" Visibility="Collapsed" />
                 </Grid>
             </Page>
         </Border>
