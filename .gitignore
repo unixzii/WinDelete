@@ -20,6 +20,7 @@ bld/
 [Oo]bj/
 [Ll]og/
 [Ll]ogs/
+**/Generated Files/**
 
 # Visual Studio 2015/2017 cache/options directory
 .vs/
@@ -34,3 +35,9 @@ ipch/
 *.cachefile
 *.VC.db
 *.VC.VC.opendb
+
+# Nuget cache files
+/packages/**
+
+# Keep .gitkeep files
+!**/.gitkeep

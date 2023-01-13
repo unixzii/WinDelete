@@ -1,0 +1,25 @@
+<Page
+    x:Class="WinDeleteNG.AboutDialogContent"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:WinDeleteNG"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <TextBlock TextWrapping="Wrap">A simple app to force deleting files.</TextBlock>
+        <TextBlock TextWrapping="Wrap">
+            <Run Text="Version: " />
+            <!-- TODO: Use a runtime way to update this field -->
+            <Run Text="1.1.0.0" FontWeight="Bold" />
+        </TextBlock>
+
+        <TextBlock TextWrapping="Wrap" Margin="0,8,0,0">
+            <Run Text="Source Code: " />
+            <Hyperlink NavigateUri="https://github.com/unixzii/WinDelete/">
+                https://github.com/unixzii/WinDelete
+            </Hyperlink>
+        </TextBlock>
+    </StackPanel>
+</Page>

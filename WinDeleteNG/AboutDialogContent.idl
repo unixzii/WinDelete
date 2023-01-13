@@ -1,0 +1,8 @@
+namespace WinDeleteNG
+{
+    [default_interface]
+    runtimeclass AboutDialogContent : Microsoft.UI.Xaml.Controls.Page
+    {
+        AboutDialogContent();
+    }
+}

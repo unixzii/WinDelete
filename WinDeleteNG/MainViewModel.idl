@@ -1,0 +1,10 @@
+namespace WinDeleteNG
+{
+    [bindable]
+    [default_interface]
+    runtimeclass MainViewModel : Microsoft.UI.Xaml.Data.INotifyPropertyChanged
+    {
+        MainViewModel();
+        String SelectedFileName;
+    }
+}

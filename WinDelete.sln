@@ -5,6 +5,8 @@ VisualStudioVersion = 17.4.33205.214
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinDelete", "WinDelete.vcxproj", "{CC4D8F88-A159-47DC-89D3-86208D2D224D}"
 EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "WinDeleteNG", "WinDeleteNG\WinDeleteNG.vcxproj", "{17A76BC0-AAEF-4839-8495-91E58444CB41}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|x64 = Debug|x64
@@ -21,6 +23,18 @@ Global
 		{CC4D8F88-A159-47DC-89D3-86208D2D224D}.Release|x64.Build.0 = Release|x64
 		{CC4D8F88-A159-47DC-89D3-86208D2D224D}.Release|x86.ActiveCfg = Release|Win32
 		{CC4D8F88-A159-47DC-89D3-86208D2D224D}.Release|x86.Build.0 = Release|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x64.ActiveCfg = Debug|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x64.Build.0 = Debug|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x64.Deploy.0 = Debug|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x86.ActiveCfg = Debug|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x86.Build.0 = Debug|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Debug|x86.Deploy.0 = Debug|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x64.ActiveCfg = Release|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x64.Build.0 = Release|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x64.Deploy.0 = Release|x64
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x86.ActiveCfg = Release|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x86.Build.0 = Release|Win32
+		{17A76BC0-AAEF-4839-8495-91E58444CB41}.Release|x86.Deploy.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
