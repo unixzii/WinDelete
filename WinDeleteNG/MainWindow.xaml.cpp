@@ -155,6 +155,9 @@ namespace winrt::WinDeleteNG::implementation
 
     void MainWindow::SelectFileButton_Click(const IInspectable& sender, const winrt::Microsoft::UI::Xaml::RoutedEventArgs& args)
     {
+        UNREFERENCED_PARAMETER(sender);
+        UNREFERENCED_PARAMETER(args);
+
         WCHAR path_buf[1024] = { 0 };
 
         OPENFILENAMEW ofn{ 0 };
@@ -211,6 +214,8 @@ namespace winrt::WinDeleteNG::implementation
         std::vector<ProcessItem> proc_items;
         ntutils::FindOpenedFileHandles(kernel_name, [&](HANDLE proc_handle, HANDLE file_handle)
             {
+                UNREFERENCED_PARAMETER(file_handle);
+
                 WCHAR buf[MAX_PATH + 1];
                 DWORD buf_len = GetModuleFileNameExW(proc_handle, 0, buf, MAX_PATH);
 #pragma warning( push )

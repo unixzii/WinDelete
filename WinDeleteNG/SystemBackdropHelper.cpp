@@ -51,6 +51,9 @@ namespace WinDelete
 		const winrt::Windows::Foundation::IInspectable& sender,
 		const winrt::Microsoft::UI::Xaml::WindowActivatedEventArgs& args)
 	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(args);
+
 		m_conf.IsInputActive(args.WindowActivationState() != winrt::Microsoft::UI::Xaml::WindowActivationState::Deactivated);
 	}
 
@@ -58,6 +61,9 @@ namespace WinDelete
 		const winrt::Windows::Foundation::IInspectable& sender,
 		const winrt::Microsoft::UI::Xaml::WindowEventArgs& args)
 	{
+		UNREFERENCED_PARAMETER(sender);
+		UNREFERENCED_PARAMETER(args);
+
 		if (m_micaController)
 		{
 			m_micaController.Close();
